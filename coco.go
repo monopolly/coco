@@ -2,6 +2,7 @@ package coco
 
 import (
 	"bytes"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -40,7 +41,7 @@ type Engine struct {
 }
 
 func (a *Engine) Load(filename string) (err error) {
-	data, err := open(filename)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		return
 	}
@@ -117,7 +118,7 @@ func (a *Engine) Data() (res []byte) {
 func (a *Engine) Save(filename string) (err error) {
 	a.Flush()
 	b := a.Data()
-	return save(filename, b)
+	return os.WriteFile(filename, b, os.ModePerm)
 }
 
 // minimum items in queue, default 1000
