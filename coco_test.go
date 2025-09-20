@@ -14,8 +14,16 @@ import (
 func TestMainA(u *testing.T) {
 	__(u)
 
-	p := New(2)
+	p := New(100000)
 	p.Lowercase(true)
+
+	for range 10 {
+		p.AddString("1")
+		p.Flush()
+		fmt.Println(p.Count())
+	}
+
+	return
 
 	p.Add([]byte("NICE"))
 	p.Add([]byte("NICE1"))

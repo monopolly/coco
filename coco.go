@@ -143,6 +143,9 @@ func (a *Engine) Flush() {
 		if a.lowercase {
 			x = bytes.ToLower(x)
 		}
+		if a.db.Lookup(x) {
+			continue
+		}
 		a.db.Insert(x)
 	}
 	a.queue = nil
